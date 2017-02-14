@@ -22,9 +22,8 @@ public class QueenBoard{
   }
   public boolean solveH(){
     boolean possible = false;
-    for (int a = 0; a < board.length - 1 || possible == false; a++){
-      clear();
-      for (int b = 0; b < board.length - 1 || possible == false; b++){
+    for (int a = 0; a < board.length -1 || possible == false; a++){
+      for (int b = 0; b < board.length -1 || possible == false; b++){
         if (board[b][a] == -1){
           possible = fill(b, a);
         } else {
@@ -49,25 +48,18 @@ public class QueenBoard{
   }
   public void addQ(int b, int a){
     board[b][a] = 0;
-    int x = b;
-    int y = a;
-    while (x > 0){
-      x-=1;
-      y+=1;
-      board[x][y] = 1;
+    for (int x = b; x > 0; x--){
+      for (int y = a; y < board.length -1; y++){
+      board[x-1][y+1] = 1;
+      }
     }
-    x = b;
-    y = a;
-    while (y < board.length -1){
-      y++;
-      board[x][y] = 1;
+    for (int y = a; y < board.length -1; y++){
+      board[b][y+1] = 1;
     }
-    x = b;
-    y = a;
-    while (x < board.length -1){
-      x++;
-      y++;
-      board[x][y] = 1;
+    for (int x = b; x < board.length -1; x++){
+      for (int y = a; y < board.length - 1; y++){
+        board[x][y] = 1;
+      }
     }
   }
   
@@ -75,13 +67,25 @@ public class QueenBoard{
     return solutionCount;
   }
   public String toString(){
-    return "";
+    String s = "";
+    for (int x = 0; x < board.length; x++){
+      s+="\n";
+      for (int y = 0; y < board.length; y++){
+        s = " " + board[x][y];
+      }
+    }
+    return s;
   }
 
   public static void main(String[] args){
-    QueenBoard s = new QueenBoard(1);
-    QueenBoard t = new QueenBoard(2);
+    QueenBoard s = new QueenBoard(2);
+    QueenBoard t = new QueenBoard(4);
+    System.out.println(s.toString());
     System.out.println(s.solve());
+    System.out.println(s.toString());
+    System.out.println(t.toString());
     System.out.println(t.solve());
+    System.out.println(t.toString());
+    
   }
 }
