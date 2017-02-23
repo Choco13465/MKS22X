@@ -11,54 +11,75 @@ public class QueenBoard{
   public void clear(){
     for (int y = 0; y < board.length; y++){
       for (int x = 0; x < board.length; x++){
-        board[y][x] = -1;
+        board[y][x] = 0;
       }
     }
   }
   
   
   public boolean solve(){
-    return solveH();
+    return solveH(0);
   }
-  public boolean solveH(){
-    boolean possible = false;
-    for (int a = 0; a < board.length -1 || possible == false; a++){
-      for (int b = 0; b < board.length -1 || possible == false; b++){
-        if (board[b][a] == -1){
-          possible = fill(b, a);
-        } else {
-          board[b][a] = 1;
+  public boolean solveH(int b){
+    if (b >= board.length){
+      return true;
+    }
+    for (int i = 0; i < board.length && b < board.length; i++){
+      if (board[i][b] == 0){
+        addQ(i, b);
+        if (solveH(b+1)){
+          return true;
+        }else{
+        removeQ(i, b);
         }
       }
     }
-    return possible;
+    return false;
   }
-  public boolean fill(int x, int y){
-    int count = board.length;
-    for (int a = y; a < board.length; a++){
-      for (int b = x; b < board.length; b++){
-        if (board[b][a] == -1){
-          addQ(b, a);
-          count--;
-          b+=board.length;
-        }
-      }
-    }
-    return count == 0;
-  }
+  
   public void addQ(int b, int a){
+    board[b][a] = 1;
+    for (int i = 1; (b-i) > -1 && (a+i) < board.length; i++){
+      board[b-i][a+i] += 2;
+    }
+    for (int i = 1; (a+i) < board.length; i++){
+      board[b][a+i] += 2;
+    }
+    for (int i = 1; (b+i) < board.length && (a+i) < board.length; i++){
+      board[b+i][a+i] += 2;
+    }
+    for (int i = 1; (b+i) < board.length; i++){
+      board[b+i][a] += 2;
+    }
+  }
+  public void removeQ(int b, int a){
     board[b][a] = 0;
-    for (int x = b; x > 0; x--){
-      for (int y = a; y < board.length -1; y++){
-      board[x-1][y+1] = 1;
+    for (int i = 1; (b-i) > -1 && (a+i) < board.length; i++){
+      if (board[b-i][a+i] == 2){
+        board[b-i][a+i] = 0;
+      }else{
+        board[b-i][a+i] -= 2;
       }
     }
-    for (int y = a; y < board.length -1; y++){
-      board[b][y+1] = 1;
+    for (int i = 1; (a+i) < board.length; i++){
+      if (board[b][a+i] == 2){
+        board[b][a+i] = 0;
+      }else{
+        board[b][a+i] -= 2;
+      }
     }
-    for (int x = b; x < board.length -1; x++){
-      for (int y = a; y < board.length - 1; y++){
-        board[x][y] = 1;
+    for (int i = 1; (b+i) < board.length && (a+i) < board.length; i++){
+      if (board[b+i][a+i] == 2){
+        board[b+i][a+i] = 0;
+      }else{
+        board[b+i][a+i] -= 2;
+      }
+    }
+    for (int i = 1; (b+i) < board.length; i++){
+      if (board[b+i][a] == 2){
+        board[b+i][a] = 0;
+      }else{
+        board[b+i][a] -= 2;
       }
     }
   }
@@ -66,26 +87,15 @@ public class QueenBoard{
   public int getSolutionCount(){
     return solutionCount;
   }
+  
   public String toString(){
     String s = "";
     for (int x = 0; x < board.length; x++){
-      s+="\n";
       for (int y = 0; y < board.length; y++){
-        s = " " + board[x][y];
+        s = s + " " + board[x][y];
       }
+      s+="\n";
     }
     return s;
-  }
-
-  public static void main(String[] args){
-    QueenBoard s = new QueenBoard(2);
-    QueenBoard t = new QueenBoard(4);
-    System.out.println(s.toString());
-    System.out.println(s.solve());
-    System.out.println(s.toString());
-    System.out.println(t.toString());
-    System.out.println(t.solve());
-    System.out.println(t.toString());
-    
   }
 }
