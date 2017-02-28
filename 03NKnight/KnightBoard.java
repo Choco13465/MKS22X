@@ -11,9 +11,9 @@ public class KnightBoard{
   }
   
   public void clear(){
-    for (int y = 0; y < board.length; y++){
-      for (int x = 0; x < board.length; x++){
-        board[y][x] = 0;
+    for (int rows = 0; rows < R; rows++){
+      for (int cols = 0; cols < C; cols++){
+        board[rows][cols] = 0;
       }
     }
   }
@@ -116,12 +116,12 @@ public class KnightBoard{
   
   public String toString(){
     String s = "";
-    for (int x = 0; x < board.length; x++){
-      for (int y = 0; y < board.length; y++){
-        if (board[x][y] < 10){
-          s = s + "  " + board[x][y];
+    for (int rows = 0; rows < R; rows++){
+      for (int cols = 0; cols < C; cols++){
+        if (board[rows][cols] < 10){
+          s = s + "  " + board[rows][cols];
         }else{
-          s = s + " " + board[x][y];
+          s = s + " " + board[rows][cols];
         }
       }
       s+="\n";
@@ -130,7 +130,7 @@ public class KnightBoard{
   }
   
   public static void main(String[] args){
-    QueenBoard blah = new QueenBoard(1);
+    KnightBoard blah = new KnightBoard(1,1);
     System.out.println(blah.toString());
     System.out.println(blah.solve());
     System.out.println(blah.toString());
