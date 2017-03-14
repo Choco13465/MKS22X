@@ -1,27 +1,31 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
+import java.lang.*;
 
 public class USACO{
+  public int[][] pasture;
+  public int Row, Col, E, N, R1, R2, C1, C2;
+  
   public USACO(){}
-  public static int bronze(String filename) throws FileNotFoundException{
+  
+  public int bronze(String filename){
+    try{
     File input = new File(filename);
     Scanner reader = new Scanner(input);
-    String line = reader.nextLine();
     
-    int[][] pasture = new int[Integer.parseInt(line.split(" ")[0])][Integer.parseInt(line.split(" ")[1])];
-    int E = Integer.parseInt(line.split(" ")[2]);
-    int N = Integer.parseInt(line.split(" ")[3]);
+    Row = reader.nextInt();
+    Col = reader.nextInt();
+    E = reader.nextInt();
+    N = reader.nextInt();
+    pasture = new int[Row][Col];
     
-    for (int r = 0; r<pasture.length; r++){
-      line = reader.nextLine();
-      for (int c = 0; c<pasture[r].length; c++){
-        pasture[r][c] = Integer.parseInt(line.split(" ")[c]);
+    for (int r = 0; r < pasture.length; r++){
+      for (int c = 0; c < pasture[r].length; c++){
+        pasture[r][c] = reader.nextInt();
       }
     }
     for (int instructions = 0; instructions < N; instructions++){
-      line = reader.nextLine();
-      pasture = cowStomp(Integer.parseInt(line.split(" ")[0])-1, Integer.parseInt(line.split(" ")[1])-1,Integer.parseInt(line.split(" ")[2]), pasture);
+      pasture = cowStomp(reader.nextInt()-1, reader.nextInt()-1,reader.nextInt(), pasture);
     }
     
     int total = 0;
@@ -33,6 +37,10 @@ public class USACO{
       }
     }
     return total*72*72;
+    }
+    catch (FileNotFoundException e){
+      System.exit(0);
+    }
   }
   
   private static int[][] cowStomp(int r, int c, int d, int[][] pasture){
@@ -59,15 +67,15 @@ public class USACO{
   public int silver(String filename) throws FileNotFoundException{
     File input = new File(filename);
     Scanner reader = new Scanner(input);
-    String line = reader.nextLine();
     
-    int[][] pasture = new int[Integer.parseInt(line.split(" ")[0])][Integer.parseInt(line.split(" ")[1])];
-    int T = Integer.parseInt(line.split(" ")[2]);
+    Row = reader.nextInt();
+    Col = reader.nextInt();
+    pasture = new int[Row][Col];
+    int T = reader.nextInt();
     
     for (int r = 0; r<pasture.length+1; r++){
-      line = reader.nextLine();
       for (int c = 0; c<pasture[r].length+1; c++){
-        if ((line.split(" ")[c]).equals(".")){
+        if ((reader.next()).equals(".")){
           pasture[r][c] = 0;
         }
         else{
@@ -76,15 +84,14 @@ public class USACO{
       }
     }
     
-    line = reader.nextLine();
-    int R1 = Integer.parseInt(line.split(" ")[0]);
-    int C1 = Integer.parseInt(line.split(" ")[1]);
-    int R2 = Integer.parseInt(line.split(" ")[2]);
-    int C2 = Integer.parseInt(line.split(" ")[3]);
+    R1 = reader.nextInt();
+    C1 = reader.nextInt();
+    R2 = reader.nextInt();
+    C2 = reader.nextInt();
     pasture[R1][C1] = 1;
     
     for (int instructions = 0; instructions <= T; instructions++){
-      move(pasture);
+      pasture = move(pasture);
     }
     
     return pasture[R2][C2];
@@ -96,28 +103,28 @@ public class USACO{
       for (int c = 0; c < pasture.length; c++){
         if (r-1 >= 0 && c-1 >= 0){
           if(pasture[r-1][c-1] != -1){
-            temp[r][c] += pasture[r-1][c-1];
+            temp[r-1][c-1] += 1;
           }
         }
         if (r-1 >= 0 && c+1 < pasture[c].length){
           if(pasture[r-1][c+1] != -1){
-            temp[r][c] += pasture[r-1][c+1];
+            temp[r-1][c+1] += 1;
           }
         }
         if (r+1 < pasture[r].length && c-1 >= 0){
           if(pasture[r+1][c-1] != -1){
-            temp[r][c] += pasture[r+1][c-1];
+            temp[r+1][c-1] += 1;
           }
         }
         if (r+1 < pasture[r].length && c+1 < pasture[c].length){
           if(pasture[r+1][c+1] != -1){
-            temp[r][c] += pasture[r+1][c+1];
+            temp[r+1][c+1] += 1;
           }
         }
+        temp[r][c] = 0;
       }
     }
-    pasture = temp;
-    return pasture;
+    return temp;
   }
 }
 
