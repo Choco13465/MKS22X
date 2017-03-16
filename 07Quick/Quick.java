@@ -1,25 +1,32 @@
 public class Quick{
-    public Quick(){}
+  public Quick(){}
+  
+  public static int quickselect(int[] data, int k){
+    return part(data, 0, data.length-1, k);
+  }
+  public static int part(int[] data, int start, int end, int k){
+    int ran = Math.random(end - start);
+    int zel = data[ran];
+    int index = start-1;
+    int eindex = end+1;
     
-    public static int quickselect(int[] data, int k){
-	//return the value that is the kth smallest value of the array
-	//use your partition method to help you accomplish this
+    while (index < eindex){
+      for(index++; a[index] < zel; index++);
+      for(eindex; a[eindex] > zel; end--);
+      if (data[index] < data[eindex]){
+        zel = data[index];
+        data[index] = data[eindex];
+        data[eindex] = zel;
+      }
     }
-    public static int part(int[] data, int start, int end, int k){
-	int pivot = Math.random(end - start);
-
-	int zel = data[pivot];
-	data[pivot] = data[start];
-	data[start] = zel;
- 
-	int index = start+1;
-	int eindex = end;
-	while (index < eindex){
-	for(int index = start+1; index < end; index++){
-	    for(int eindex = end; eindex > index; end--){
-		if (data[index] < data[eindex]){
-		    data[
-
-	    //When done returns index of the final of the pivot element
-	}
+    if (index = k){
+      return data[index];
+    } else {
+      if (index < k){
+        part(data, index, end, k);
+      } else {
+        part(data, start, index, k);
+      }
+    }
+  }
 }
