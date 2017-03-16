@@ -34,5 +34,11 @@ public class Quick{
 	return index;
     }
     
+
+    public static void main(String[] args){
+	int[] blah = new int[5];
+	for(int i = 0; i < blah.length; i++){
+	    blah[i] = i;
+	}
     
 }
