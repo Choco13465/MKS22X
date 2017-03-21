@@ -38,8 +38,9 @@ public class USACO{
     }
     return total*72*72;
     }
-    catch (FileNotFoundException e){
-      System.exit(0);
+  
+    catch(FileNotFoundException e){
+      return -1;
     }
   }
   
@@ -64,7 +65,8 @@ public class USACO{
   }
   
   
-  public int silver(String filename) throws FileNotFoundException{
+  public int silver(String filename){
+    try{
     File input = new File(filename);
     Scanner reader = new Scanner(input);
     
@@ -95,6 +97,10 @@ public class USACO{
     }
     
     return pasture[R2][C2];
+    }
+    catch(FileNotFoundException e){
+      return -1;
+    }
   }
   
   private static int[][] move(int[][] pasture){
