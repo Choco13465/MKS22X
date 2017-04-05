@@ -1,4 +1,20 @@
-public class MyLinkedList{
+import java.util.Iterator;
+
+public class MyLinkedList implements Iterable<Integer>{
+    public Iterable<Integer> iterator(){
+	return new Iterator(start);
+    }
+
+    public class MYLLIterator{
+	public LNode curr;
+	public MYLLIterator(LNode temp){
+	    curr = temp;
+	}
+
+	public boolean hasNext(){
+
+
+
     private class LNode{
 	private int value;
 	private LNode next, prev;
