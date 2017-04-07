@@ -1,17 +1,19 @@
 import java.util.Iterator;
 
-public class MyLinkedList implements Iterable<Integer>{
-    public Iterable<Integer> iterator(){
+public class MyLinkedList// implements Iterable<Integer>{
+{
+    /* public Iterable<Integer> iterator(){
 	return new Iterator(start);
     }
 
-    public class MYLLIterator{
+     public class MYLLIterator{
 	public LNode curr;
 	public MYLLIterator(LNode temp){
 	    curr = temp;
 	}
 
 	public boolean hasNext(){
+    */
 
 
 
@@ -43,11 +45,9 @@ public class MyLinkedList implements Iterable<Integer>{
     public String toString(){
 	String s = "[";
 	LNode temp = start;
-	int zel = size();
-	while (zel > 0){
+	while (temp!=null){
 	    s += temp.toString();
 	    temp = temp.next;
-	    zel--;
 	}
 	return s + "]";
     }
