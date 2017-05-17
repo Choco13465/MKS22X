@@ -27,6 +27,8 @@ public class Maze{
   public void clearTerminal(){
     System.out.println(CLEAR_SCREEN+"\033[1;1H");
   }
+
+    //Maze constructor
   public Maze(String filename){
     this(filename,false);
   }
@@ -75,12 +77,12 @@ public class Maze{
       System.exit(0);
 
     }
+
     maxRows = maze.length;
     maxCols = maze[0].length;
-    //IF YOU GET HERE, there is 1 start, and 1 end. The coords are in
-    //startr,startc
-    //endr,endc
-    //you must initialize the Location start/end now!
+
+    start = new Location(startr, startc, null, null, null, null);
+    end = new Location(endr, endc, null, null, null, null);
   }
 
   public String toString(){
