@@ -20,7 +20,7 @@ public class MazeSolver{
     }
     public void solve(int style){
 	switch (style){
-	case 0: //DFS
+	case 0: DFS(maze);
 	    break;
 	case 1: //BFS
 	    break;
@@ -31,6 +31,12 @@ public class MazeSolver{
 	default: break;
 	}
     }
+
+    public void DFS(Maze maz){
+	FrontierStack frontier = new FrontierStack();
+	frontier.add(start);
+	while(frontier.next().gprev() != null && frontier.hasNext()){}
+    } 
 
     public String toString(){
 	return maze.toString();

@@ -25,16 +25,19 @@ public class Location implements Comparable<Location>{
     public int gdTS(){
 	return distToStart;
     }
-    public int gaStar(){
+    public Location gprev(){
+	return previous;
+    }
+    public boolean gaStar(){
 	return aStar;
     }
 
     public int compareTo(Location other){
 	if (gaStar()){
-	    return (gTS()+gTG()) - (other.gTS()+other.gTG());
+	    return (gdTS()+gdTG()) - (other.gdTS()+other.gdTG());
 	}
 	else{
-	    return gTG()-other.gTG();
+	    return gdTG()-other.gdTG();
 	}
     }
 }
