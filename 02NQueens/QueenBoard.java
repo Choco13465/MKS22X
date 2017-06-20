@@ -5,7 +5,7 @@ public class QueenBoard{
   public QueenBoard(int size){
     board = new int[size][size];
     clear();
-    int solutionCount = -1;
+    solutionCount = -1;
   }
   
   public void clear(){
@@ -91,10 +91,13 @@ public class QueenBoard{
   }
   
   public int getSolutionCount(){
+    return solutionCount;
+  }
+  
+  public void countSolutions(){
     solutionCount = 0;
     clear();
     solveH(0, true);
-    return solutionCount;
   }
   
   public String toString(){
